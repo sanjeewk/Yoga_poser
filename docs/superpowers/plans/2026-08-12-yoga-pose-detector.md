@@ -1263,7 +1263,7 @@ def test_predict_returns_label_and_confidence(tmp_path):
 def test_predict_marks_low_confidence_as_unknown(tmp_path):
     mp, lp = _train_tiny(tmp_path)
     clf = PoseClassifier(mp, lp, confidence_threshold=0.99)
-    feats = np.full(16, 90.0, dtype=np.float32)
+    feats = np.full(16, 30.0, dtype=np.float32)
     vis = np.full(33, 0.9, dtype=np.float32)
     result = clf.predict(feats, vis)
     assert result.label == "Unknown"
