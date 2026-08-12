@@ -44,3 +44,19 @@ def test_at_most_two_hints_returned():
     eng = FeedbackEngine(TEMPLATES)
     hints = eng.get_feedback("tadasana", feats)
     assert len(hints) <= 2
+
+
+def test_cue_direction_for_too_bent_knee():
+    feats = np.zeros(16, dtype=np.float32)
+    feats[4] = 120.0  # left_knee template 175 → delta -55 → too bent → say "Straighten"
+    feats[5] = 175.0  # right_knee matches template
+    feats[0] = 180.0
+    feats[1] = 180.0
+    feats[8] = 0.0
+    feats[9] = 0.0
+    eng = FeedbackEngine(TEMPLATES)
+    hints = eng.get_feedback("tadasana", feats)
+    knee_hints = [h for h in hints if "knee" in h.joint]
+    assert knee_hints, "expected at least one knee hint"
+    assert any("Straighten" in h.cue for h in knee_hints)
+    assert not any("Bend" in h.cue for h in knee_hints)

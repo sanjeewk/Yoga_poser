@@ -15,14 +15,14 @@ PRIORITY = {
 }
 
 JOINT_TO_CUE = {
-    "left_knee": ("Bend your front knee more", "Straighten your front knee", "major"),
-    "right_knee": ("Bend your back knee more", "Straighten your back knee", "major"),
-    "left_hip": ("Sink deeper into the hip", "Lift the hip higher", "major"),
-    "right_hip": ("Sink deeper into the hip", "Lift the hip higher", "major"),
+    "left_knee": ("Straighten your front knee", "Bend your front knee more", "major"),
+    "right_knee": ("Straighten your back knee", "Bend your back knee more", "major"),
+    "left_hip": ("Open your hip more", "Sink deeper into the hip", "major"),
+    "right_hip": ("Open your hip more", "Sink deeper into the hip", "major"),
     "left_shoulder": ("Raise your arm higher", "Lower your arm slightly", "minor"),
     "right_shoulder": ("Raise your arm higher", "Lower your arm slightly", "minor"),
-    "left_elbow": ("Bend your elbow more", "Straighten your arm", "minor"),
-    "right_elbow": ("Bend your elbow more", "Straighten your arm", "minor"),
+    "left_elbow": ("Straighten your arm", "Bend your elbow more", "minor"),
+    "right_elbow": ("Straighten your arm", "Bend your elbow more", "minor"),
     "torso_lean": ("Lean further forward", "Stand more upright", "major"),
     "spine_arch": ("Arch your spine more", "Round your spine less", "minor"),
 }
