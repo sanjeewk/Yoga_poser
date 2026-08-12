@@ -1,3 +1,4 @@
+import time
 import uuid
 from collections import deque
 
@@ -86,11 +87,14 @@ class SessionStore:
         sid = uuid.uuid4().hex
         s = SessionState(sid, target_poses)
         self._sessions[sid] = s
-        self._last_active[sid] = 0.0
+        self._last_active[sid] = time.time()
         return s
 
     def get(self, session_id: str) -> SessionState | None:
-        return self._sessions.get(session_id)
+        s = self._sessions.get(session_id)
+        if s is not None:
+            self._last_active[session_id] = time.time()
+        return s
 
     def evict_idle(self, now_ts: float, max_age_seconds: float = 1800):
         stale = [sid for sid, t in self._last_active.items() if now_ts - t > max_age_seconds]
