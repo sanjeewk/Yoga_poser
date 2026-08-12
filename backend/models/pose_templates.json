@@ -1,0 +1,10 @@
+{
+  "tadasana": {
+    "left_knee": 175.0,
+    "right_knee": 175.0,
+    "left_elbow": 180.0,
+    "right_elbow": 180.0,
+    "torso_lean": 0.0,
+    "spine_arch": 0.0
+  }
+}
