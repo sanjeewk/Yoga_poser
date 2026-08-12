@@ -1070,9 +1070,11 @@ def test_store_start_and_get():
 
 
 def test_store_evicts_idle():
+    import time
     store = SessionStore()
     s = store.start(["tadasana"])
-    store.evict_idle(now_ts=10000.0, max_age_seconds=10)
+    future = time.time() + 100
+    store.evict_idle(now_ts=future, max_age_seconds=10)
     assert store.get(s.session_id) is None
 ```
 
