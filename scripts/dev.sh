@@ -2,9 +2,7 @@
 set -euo pipefail
 trap 'kill 0' EXIT
 
-(cd backend && . .venv/bin/activate && uvicorn app.main:app --reload --port 8000) &
-BACK_PID=$!
+(backend/.venv/bin/uvicorn backend.app.main:app --reload --port 8000) &
 (cd frontend && npm run dev) &
-FRONT_PID=$!
 
 wait

@@ -41,7 +41,7 @@ python -m backend.training.build_templates
 ## Tests
 ```bash
 # Backend
-cd backend && source .venv/bin/activate && pytest -v
+cd /home/sanjeew/Yoga_poser && backend/.venv/bin/python -m pytest backend/tests -v
 # Frontend
 cd frontend && npx vitest run
 ```
