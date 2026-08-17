@@ -1,10 +1,44 @@
 {
-  "tadasana": {
-    "left_knee": 175.0,
-    "right_knee": 175.0,
-    "left_elbow": 180.0,
-    "right_elbow": 180.0,
-    "torso_lean": 0.0,
-    "spine_arch": 0.0
+  "adho_mukha_svanasana": {
+    "left_elbow": 114.96895217895508,
+    "right_elbow": 111.1252670288086,
+    "left_shoulder": 141.76787567138672,
+    "right_shoulder": 141.28424072265625,
+    "left_knee": 171.8046417236328,
+    "right_knee": 169.39905548095703,
+    "left_hip": 60.170942306518555,
+    "right_hip": 58.31721878051758,
+    "torso_lean": 145.75636291503906,
+    "spine_arch": 134.6599578857422,
+    "left_wrist_shoulder_closure": 26.845839500427246,
+    "right_wrist_shoulder_closure": 29.469038009643555
+  },
+  "virabhadrasana_ii": {
+    "left_elbow": 148.13543701171875,
+    "right_elbow": 129.5139617919922,
+    "left_shoulder": 101.72771453857422,
+    "right_shoulder": 100.33561325073242,
+    "left_knee": 102.99583435058594,
+    "right_knee": 89.84033584594727,
+    "left_hip": 104.54234313964844,
+    "right_hip": 101.91497039794922,
+    "torso_lean": 15.912259101867676,
+    "spine_arch": 141.52404022216797,
+    "left_wrist_shoulder_closure": 15.187936782836914,
+    "right_wrist_shoulder_closure": 29.076581954956055
+  },
+  "vrksasana": {
+    "left_elbow": 130.68267822265625,
+    "right_elbow": 128.66448974609375,
+    "left_shoulder": 139.8055419921875,
+    "right_shoulder": 132.9423828125,
+    "left_knee": 119.60204315185547,
+    "right_knee": 53.70424270629883,
+    "left_hip": 148.313720703125,
+    "right_hip": 109.30994415283203,
+    "torso_lean": 20.17874526977539,
+    "spine_arch": 124.17662811279297,
+    "left_wrist_shoulder_closure": 25.063888549804688,
+    "right_wrist_shoulder_closure": 26.815690994262695
   }
 }
