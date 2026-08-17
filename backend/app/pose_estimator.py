@@ -36,5 +36,5 @@ _estimator = None
 def get_estimator():
     global _estimator
     if _estimator is None:
-        _estimator = PoseEstimator()
+        _estimator = PoseEstimator(static_image_mode=True)
     return _estimator

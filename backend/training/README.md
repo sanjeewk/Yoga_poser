@@ -46,6 +46,8 @@ canonical key is `vrksasana`).
 
 To retrain from scratch, re-download the parquet files (URLs in the two
 extractor scripts) and run the three pipeline commands above.
-When evaluating with unrelated still images, use
-`PoseEstimator(static_image_mode=True)`; the serving singleton uses tracking
-mode (`False`), which assumes temporally related frames (webcam video).
+Both training extraction and the serving singleton use
+`PoseEstimator(static_image_mode=True)` for train/serve parity: the
+classifier consumes per-frame features, so landmark distributions must
+match between training and inference. (Serving previously used tracking
+mode; live still-image verification scored 0.50 vs 0.94 after this fix.)
