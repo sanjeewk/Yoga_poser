@@ -47,7 +47,7 @@ class SessionState:
         return bool(recent) and all(l == label for _, l in recent)
 
     def _on_pose_exit(self, now_ts: float):
-        if self._current_pose is None or self._current_pose == "unknown":
+        if self._current_pose is None or self._current_pose == "Unknown":
             return
         if self._hold_seconds >= REP_MIN_HOLD_SECONDS and now_ts >= self._rep_cooldown_until:
             self._rep_count_per_pose[self._current_pose] = (

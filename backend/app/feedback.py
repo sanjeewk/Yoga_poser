@@ -25,6 +25,8 @@ JOINT_TO_CUE = {
     "right_elbow": ("Straighten your arm", "Bend your elbow more", "minor"),
     "torso_lean": ("Lean further forward", "Stand more upright", "major"),
     "spine_arch": ("Arch your spine more", "Round your spine less", "minor"),
+    "left_wrist_shoulder_closure": ("Reach your arm further", "Bring your arm closer", "minor"),
+    "right_wrist_shoulder_closure": ("Reach your arm further", "Bring your arm closer", "minor"),
 }
 
 

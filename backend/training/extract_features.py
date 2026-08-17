@@ -14,7 +14,7 @@ TORSO_KEYPOINT_INDICES = [11, 12, 23, 24]
 
 def process_images(image_paths: Iterable[tuple[Path, str]],
                    min_torso_visibility: float = 0.5) -> pd.DataFrame:
-    estimator = PoseEstimator()
+    estimator = PoseEstimator(static_image_mode=True)
     rows = []
     for path, label in image_paths:
         try:
