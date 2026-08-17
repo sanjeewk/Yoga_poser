@@ -23,23 +23,29 @@ python -m backend.training.train              # → backend/models/{pose_classif
 python -m backend.training.build_templates    # → backend/models/pose_templates.json
 ```
 
-## Interim model provenance (committed artifacts)
+## Committed model provenance
 
-The currently committed model is an **interim 3-pose model** trained from
-`AdityasArsenal/Yoga-pose-Data-Set` on HuggingFace (public mirror of a 5-class
-Kaggle yoga dataset; classes: downdog, goddess, plank, tree, warrior2). Only the
-3 classes matching v1 poses were kept, filtered into:
+The committed model covers **all 8 v1 poses**, trained from two public
+HuggingFace datasets (no Kaggle token required):
 
-```
-data/raw/Downward Dog/    → adho_mukha_svanasana
-data/raw/Tree/            → vrksasana
-data/raw/Warrior II/      → virabhadrasana_ii
-```
+1. `rotemvahava/yoga-poses-107` (~1.1GB parquet; mirror of the 107-class
+   Kaggle yoga dataset) — extracted via `backend/training/hf107_extract.py`,
+   keeping only the 8 exact Sanskrit labels (488 images).
+2. `AdityasArsenal/Yoga-pose-Data-Set` (5-class) — extracted via
+   `backend/training/hf_extract.py`, keeping downdog/tree/warrior2
+   (1434 images).
 
-- 214 images → 195 passed MediaPipe visibility filtering
-- Val accuracy: 0.947 (all three models; RF selected on tie-break)
-- Retrain with the full 8-pose Kaggle dataset (107 classes) once
-  `~/.kaggle/kaggle.json` is available.
-- Note: when evaluating with unrelated still images, use
-  `PoseEstimator(static_image_mode=True)`; the serving singleton uses tracking
-  mode (`False`), which assumes temporally related frames (webcam video).
+Folders from both sources land in `data/raw/<label>/` and are unified by
+`download_data.SYNONYM_MAP` (note: dataset spells tree pose "vriksasana";
+canonical key is `vrksasana`).
+
+- 1922 candidate images → 1791 passed MediaPipe visibility filtering
+- Selected model: random_forest (val 0.889; GBM 0.870, SVC 0.852)
+- Test top-1 0.907, top-2 0.944 (≥0.85 gate cleared)
+- Batch static-mode verification: 113/125 = 0.904
+
+To retrain from scratch, re-download the parquet files (URLs in the two
+extractor scripts) and run the three pipeline commands above.
+When evaluating with unrelated still images, use
+`PoseEstimator(static_image_mode=True)`; the serving singleton uses tracking
+mode (`False`), which assumes temporally related frames (webcam video).
