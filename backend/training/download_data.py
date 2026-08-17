@@ -34,6 +34,7 @@ SYNONYM_MAP = {
     "marjaryasana": "marjaryasana",
     "cat": "marjaryasana",
     "cat pose": "marjaryasana",
+    "vriksasana": "vrksasana",
 }
 
 
