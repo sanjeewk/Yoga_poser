@@ -40,5 +40,8 @@ def test_train_writes_artifacts_and_returns_metrics(tmp_path):
     assert (tmp_path / "pose_classifier.joblib").exists()
     assert (tmp_path / "label_encoder.pkl").exists()
     assert "test_top1_accuracy" in metrics
+    assert isinstance(metrics["selected_model"], str)
+    assert metrics["selected_model"] != ""
+    assert metrics["test_top2_accuracy"] >= metrics["test_top1_accuracy"]
     clf = joblib.load(tmp_path / "pose_classifier.joblib")
     assert hasattr(clf, "predict_proba")
