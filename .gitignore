@@ -12,6 +12,10 @@ venv/
 data/
 backend/models/*.tmp
 
+# Internal docs
+docs/superpowers/
+docs/test/
+
 # Node
 node_modules/
 frontend/dist/
