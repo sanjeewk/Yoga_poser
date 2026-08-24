@@ -9,9 +9,9 @@ See `docs/superpowers/specs/2026-08-12-yoga-pose-detector-design.md` for the ful
 | | | | |
 |---|---|---|---|
 | **Mountain**<br>Tadasana | **Downward-Facing Dog**<br>Adho Mukha Svanasana | **Warrior I**<br>Virabhadrasana I | **Warrior II**<br>Virabhadrasana II |
-| ![](docs/images/poses/tadasana.jpg) | ![](docs/images/poses/adho_mukha_svanasana.jpg) | ![](docs/images/poses/virabhadrasana_i.jpg) | ![](docs/images/poses/virabhadrasana_ii.jpg) |
+| ![](docs/images/poses/mountain.jpg) | ![](docs/images/poses/downward_dog.jpg) | ![](docs/images/poses/warrior_i.jpg) | ![](docs/images/poses/warrior_ii.jpg) |
 | **Tree**<br>Vrksasana | **Cobra**<br>Bhujangasana | **Child's Pose**<br>Balasana | **Cat**<br>Marjaryasana |
-| ![](docs/images/poses/vrksasana.jpg) | ![](docs/images/poses/bhujangasana.jpg) | ![](docs/images/poses/balasana.jpg) | ![](docs/images/poses/marjaryasana.jpg) |
+| ![](docs/images/poses/tree.jpg) | ![](docs/images/poses/cobra.jpg) | ![](docs/images/poses/childs_pose.jpg) | ![](docs/images/poses/cat.jpg) |
 
 ## Detection in action
 
@@ -21,8 +21,8 @@ frame.
 
 | | | |
 |---|---|---|
-| ![](docs/images/detection/virabhadrasana_ii.jpg) | ![](docs/images/detection/adho_mukha_svanasana.jpg) | ![](docs/images/detection/vrksasana.jpg) |
-| ![](docs/images/detection/marjaryasana.jpg) | | |
+| ![](docs/images/detection/warrior_ii.jpg) | ![](docs/images/detection/downward_dog.jpg) | ![](docs/images/detection/tree.jpg) |
+| ![](docs/images/detection/cat.jpg) | | |
 
 Regenerate all images with:
 

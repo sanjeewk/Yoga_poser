@@ -20,6 +20,17 @@ POSE_KEYS = [
 ]
 DETECTION_KEYS = ["virabhadrasana_ii", "adho_mukha_svanasana", "vrksasana", "marjaryasana"]
 
+COMMON_NAMES = {
+    "tadasana": "mountain",
+    "adho_mukha_svanasana": "downward_dog",
+    "virabhadrasana_i": "warrior_i",
+    "virabhadrasana_ii": "warrior_ii",
+    "vrksasana": "tree",
+    "bhujangasana": "cobra",
+    "balasana": "childs_pose",
+    "marjaryasana": "cat",
+}
+
 POSE_CONNECTIONS = [
     [11, 12], [11, 13], [13, 15], [12, 14], [14, 16],
     [11, 23], [12, 24], [23, 24], [23, 25], [25, 27], [24, 26], [26, 28],
@@ -120,8 +131,9 @@ def main(raw_dir="data/raw", out_dir="docs/images"):
         if picked is None:
             raise SystemExit(f"MediaPipe found no usable sample for {key}")
         image, _landmarks, path = picked
-        cv2.imwrite(str(poses_dir / f"{key}.jpg"), image, [cv2.IMWRITE_JPEG_QUALITY, 85])
-        print(f"poses/{key}.jpg  <-  {path}")
+        out_name = COMMON_NAMES[key]
+        cv2.imwrite(str(poses_dir / f"{out_name}.jpg"), image, [cv2.IMWRITE_JPEG_QUALITY, 85])
+        print(f"poses/{out_name}.jpg  <-  {path}")
 
     classifier = load_default()
     if classifier is None:
@@ -138,9 +150,10 @@ def main(raw_dir="data/raw", out_dir="docs/images"):
         if result.label != key:
             print(f"warning: best sample for {key} predicted {result.label}")
         annotated = draw_overlay(image, landmarks, result.label, result.confidence)
-        cv2.imwrite(str(detection_dir / f"{key}.jpg"), annotated,
+        out_name = COMMON_NAMES[key]
+        cv2.imwrite(str(detection_dir / f"{out_name}.jpg"), annotated,
                     [cv2.IMWRITE_JPEG_QUALITY, 85])
-        print(f"detection/{key}.jpg  predicted={result.label} conf={result.confidence:.2f}")
+        print(f"detection/{out_name}.jpg  predicted={result.label} conf={result.confidence:.2f}")
 
 
 if __name__ == "__main__":
