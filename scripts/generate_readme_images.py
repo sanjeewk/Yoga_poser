@@ -99,3 +99,49 @@ def draw_overlay(image, landmarks, label, confidence):
     cv2.putText(out, text, (10, th + 10), cv2.FONT_HERSHEY_SIMPLEX, 0.8,
                 (255, 255, 255), 2)
     return out
+
+
+def main(raw_dir="data/raw", out_dir="docs/images"):
+    pairs_by_pose = {}
+    for path, label in find_images(raw_dir):
+        pairs_by_pose.setdefault(label, []).append((path, label))
+    missing = [k for k in POSE_KEYS if not pairs_by_pose.get(k)]
+    if missing:
+        raise SystemExit(f"No training images found under {raw_dir} for: {missing}")
+
+    estimator = PoseEstimator(static_image_mode=True)
+    poses_dir = Path(out_dir) / "poses"
+    detection_dir = Path(out_dir) / "detection"
+    poses_dir.mkdir(parents=True, exist_ok=True)
+    detection_dir.mkdir(parents=True, exist_ok=True)
+
+    for key in POSE_KEYS:
+        picked = pick_best_sample(pairs_by_pose[key], estimator)
+        if picked is None:
+            raise SystemExit(f"MediaPipe found no usable sample for {key}")
+        image, _landmarks, path = picked
+        cv2.imwrite(str(poses_dir / f"{key}.jpg"), image, [cv2.IMWRITE_JPEG_QUALITY, 85])
+        print(f"poses/{key}.jpg  <-  {path}")
+
+    classifier = load_default()
+    if classifier is None:
+        raise SystemExit(
+            "Model artifacts missing under backend/models/ "
+            "(pose_classifier.joblib / label_encoder.pkl) — cannot generate detection images."
+        )
+
+    for key in DETECTION_KEYS:
+        picked = pick_detection_sample(pairs_by_pose[key], estimator, classifier, key)
+        if picked is None:
+            raise SystemExit(f"MediaPipe found no usable sample for {key}")
+        image, landmarks, result = picked
+        if result.label != key:
+            print(f"warning: best sample for {key} predicted {result.label}")
+        annotated = draw_overlay(image, landmarks, result.label, result.confidence)
+        cv2.imwrite(str(detection_dir / f"{key}.jpg"), annotated,
+                    [cv2.IMWRITE_JPEG_QUALITY, 85])
+        print(f"detection/{key}.jpg  predicted={result.label} conf={result.confidence:.2f}")
+
+
+if __name__ == "__main__":
+    main()
