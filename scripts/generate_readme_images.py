@@ -149,7 +149,7 @@ def main(raw_dir="data/raw", out_dir="docs/images"):
         image, landmarks, result = picked
         if result.label != key:
             print(f"warning: best sample for {key} predicted {result.label}")
-        annotated = draw_overlay(image, landmarks, result.label, result.confidence)
+        annotated = draw_overlay(image, landmarks, COMMON_NAMES.get(result.label, result.label), result.confidence)
         out_name = COMMON_NAMES[key]
         cv2.imwrite(str(detection_dir / f"{out_name}.jpg"), annotated,
                     [cv2.IMWRITE_JPEG_QUALITY, 85])
