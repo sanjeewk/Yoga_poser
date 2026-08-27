@@ -30,3 +30,6 @@ frontend/.vite/
 # Env
 .env
 .env.local
+
+# Amp orb-generated portal state
+.amp/portals/
