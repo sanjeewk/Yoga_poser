@@ -219,7 +219,7 @@ blockquote footer { margin-top: 20px; color: #f5dcea; font-size: 9px; letter-spa
   .site-header .button { display: none; }
   .hero { width: 100%; min-height: max(790px, calc(100svh - 72px)); }
   .hero-content { min-height: max(790px, calc(100svh - 72px)); align-items: end; padding: 255px 0 48px; }
-  .hero-video { top: -30%; height: 70%; object-position: 42% center; opacity: .94; filter: saturate(.9) contrast(1.03) brightness(1.04); transform: none; }
+  .hero-video { top: -30%; height: 70%; object-position: 42% center; opacity: .94; filter: saturate(.9) contrast(1.03) brightness(1.04); transform: none; -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%); mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%); }
   .hero-wash { background: linear-gradient(180deg, rgba(48,37,59,.02) 0%, rgba(48,37,59,.1) 32%, rgba(58,40,66,.68) 50%, rgba(48,37,59,.96) 68%, rgba(42,32,50,.99) 100%); }
   h1 { font-size: 49px; }
   .hero-lede { font-size: 15px; }
