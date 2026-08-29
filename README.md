@@ -1,6 +1,6 @@
 # Yoga Poser
 
-Real-time yoga pose detector. Webcam frames flow from a React frontend to a FastAPI backend that runs MediaPipe Pose + a scikit-learn RandomForest classifier on a 16-dim feature vector. Form-feedback cues, hold-time tracking, and rep counting are all in.
+Real-time yoga pose detector. MediaPipe Pose runs locally in a browser worker; only its 33 landmarks flow to a FastAPI backend, where a scikit-learn RandomForest classifies a 16-dimensional feature vector. Camera images never leave the browser. Form-feedback cues, hold-time tracking, and rep counting are all in.
 
 See `docs/superpowers/specs/2026-08-12-yoga-pose-detector-design.md` for the full design.
 
@@ -16,8 +16,8 @@ See `docs/superpowers/specs/2026-08-12-yoga-pose-detector-design.md` for the ful
 ## Detection in action
 
 MediaPipe Pose landmarks (green skeleton, yellow joints) with the RandomForest
-classifier's prediction — the same pipeline `/api/predict` runs on every webcam
-frame.
+classifier's prediction. The browser extracts the landmarks and `/api/predict`
+classifies their geometry without receiving the camera frame.
 
 | | | |
 |---|---|---|
@@ -61,7 +61,7 @@ python -m backend.training.build_templates
 - `POST /api/session/start`  `{target_poses?: [...]}`
 - `GET  /api/session/{id}`
 - `POST /api/session/{id}/reset`
-- `POST /api/predict`        multipart `image`, `session_id`
+- `POST /api/predict`        JSON `{landmarks: [[x,y,z,visibility], ...], session_id}`
 - API docs: http://localhost:8000/docs
 
 ## Tests

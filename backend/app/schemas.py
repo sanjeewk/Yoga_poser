@@ -1,6 +1,5 @@
 from typing import Literal, Optional
 from pydantic import BaseModel, Field
-import mediapipe as mp
 
 
 class PoseCatalogEntry(BaseModel):
@@ -48,6 +47,13 @@ class PredictionResponse(BaseModel):
     rep_count: int = 0
 
 
+class PredictionRequest(BaseModel):
+    session_id: str
+    landmarks: Optional[list[tuple[float, float, float, float]]] = Field(
+        default=None, min_length=33, max_length=33,
+    )
+
+
 class SessionStartRequest(BaseModel):
     target_poses: Optional[list[str]] = None
 
@@ -67,10 +73,6 @@ class SessionStatusResponse(BaseModel):
 class HealthResponse(BaseModel):
     status: str
     model_loaded: bool
-    mediapipe_version: str
+    landmark_runtime: Literal["browser"]
 
     model_config = {"protected_namespaces": ()}
-
-
-def mediapipe_version() -> str:
-    return mp.__version__

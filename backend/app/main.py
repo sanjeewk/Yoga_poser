@@ -4,22 +4,20 @@ import time
 from contextlib import asynccontextmanager
 
 import numpy as np
-from fastapi import FastAPI, File, Form, UploadFile, HTTPException
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 from backend.app.classifier import load_default
 from backend.app.features import extract_features
 from backend.app.feedback import FeedbackEngine
-from backend.app.pose_estimator import get_estimator
 from backend.app.schemas import (
-    POSE_CATALOG, HealthResponse, PoseCatalogEntry, PredictionResponse,
-    SessionStartRequest, SessionStartResponse, SessionStatusResponse, mediapipe_version,
+    POSE_CATALOG, HealthResponse, PredictionRequest, PredictionResponse,
+    SessionStartRequest, SessionStartResponse, SessionStatusResponse,
 )
 from backend.app.session import SessionStore
 
 _classifier = None
-_estimator = None
 _feedback_engine = None
 _session_store = SessionStore()
 
@@ -33,9 +31,8 @@ def _load_templates():
 
 
 def _init_state():
-    global _classifier, _estimator, _feedback_engine
+    global _classifier, _feedback_engine
     _classifier = load_default()
-    _estimator = get_estimator()
     _feedback_engine = FeedbackEngine(_load_templates())
 
 
@@ -64,7 +61,7 @@ def health():
     return HealthResponse(
         status="ok",
         model_loaded=_classifier is not None,
-        mediapipe_version=mediapipe_version(),
+        landmark_runtime="browser",
     )
 
 
@@ -98,13 +95,12 @@ def session_reset(session_id: str):
 
 
 @app.post("/api/predict", response_model=PredictionResponse)
-async def predict(image: UploadFile = File(...), session_id: str = Form(...)):
-    raw = await image.read()
-    landmarks = _estimator.estimate(raw)
-    if landmarks is None:
+def predict(payload: PredictionRequest):
+    if payload.landmarks is None:
         return PredictionResponse(label="Unknown", confidence=0.0,
                                   landmarks=None, feedback=[],
                                   hold_seconds=0.0, rep_count=0)
+    landmarks = np.asarray(payload.landmarks, dtype=np.float32)
     features, visibility = extract_features(landmarks)
     label = "Unknown"
     confidence = 0.0
@@ -119,7 +115,7 @@ async def predict(image: UploadFile = File(...), session_id: str = Form(...)):
             feedback = hints
             has_major = any(h.severity == "major" for h in hints)
     now = time.time()
-    s = get_session_store().get(session_id)
+    s = get_session_store().get(payload.session_id)
     hold_seconds = 0.0
     rep_count = 0
     if s is not None:

@@ -4,14 +4,12 @@ from fastapi.testclient import TestClient
 from backend.app.main import app
 
 
-def test_end_to_end_predict_with_stubbed_estimator_and_classifier():
+def test_end_to_end_predict_with_browser_landmarks_and_stubbed_classifier():
     client = TestClient(app)
     fake_landmarks = np.random.default_rng(0).uniform(0.1, 0.9, size=(33, 4)).astype(np.float32)
     fake_landmarks[:, 3] = 0.95
-    with patch("backend.app.main._estimator") as est, \
-         patch("backend.app.main._classifier") as clf, \
+    with patch("backend.app.main._classifier") as clf, \
          patch("backend.app.main._feedback_engine") as fe:
-        est.estimate.return_value = fake_landmarks
         proba = clf.predict.return_value
         proba.label = "tadasana"
         proba.confidence = 0.9
@@ -20,9 +18,9 @@ def test_end_to_end_predict_with_stubbed_estimator_and_classifier():
         fe.get_feedback.return_value = []
         start = client.post("/api/session/start", json={})
         sid = start.json()["session_id"]
-        files = {"image": ("f.jpg", b"\xff\xd8\xff\xe0", "image/jpeg")}
-        data = {"session_id": sid}
-        r = client.post("/api/predict", files=files, data=data)
+        r = client.post("/api/predict", json={
+            "session_id": sid, "landmarks": fake_landmarks.tolist(),
+        })
     assert r.status_code == 200
     body = r.json()
     assert body["label"] == "tadasana"
@@ -35,4 +33,4 @@ def test_health_after_lifespan_boot():
     client = TestClient(app)
     r = client.get("/api/health")
     assert r.status_code == 200
-    assert "mediapipe_version" in r.json()
+    assert r.json()["landmark_runtime"] == "browser"
