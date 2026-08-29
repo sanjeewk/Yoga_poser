@@ -12,18 +12,50 @@ import PosePicker from './components/PosePicker'
 const features = [
   {
     number: '01',
-    title: 'AI pose tracking',
-    copy: 'Real-time skeletal tracking turns movement into immediate, practical alignment feedback while you practice.',
+    status: 'Prototype available',
+    title: 'Real-time AI feedback',
+    copy: 'Browser-based skeletal tracking turns movement into immediate alignment feedback across eight common yoga poses.',
   },
   {
     number: '02',
-    title: 'Singing bowl guidance',
-    copy: 'Immersive bowl tones mark transitions and support breathing rhythms without pulling your attention to another screen.',
+    status: 'In development',
+    title: 'Physical singing bowl',
+    copy: 'An integrated metal singing-bowl player will mark session transitions without pulling attention back to a screen.',
   },
   {
     number: '03',
-    title: 'Progress that personalizes',
-    copy: 'Build a clearer picture of your practice through hold tracking, completed poses, and suggested sequences.',
+    status: 'Planned',
+    title: 'Companion app & AI coach',
+    copy: 'Progress tracking, suggested sequences, and an LLM-based vocal coach will make guidance more personal over time.',
+  },
+  {
+    number: '04',
+    status: 'Planned',
+    title: 'Classes with real instructors',
+    copy: 'Remote live classes will bring human teaching and shared motivation home when getting to the studio is difficult.',
+  },
+]
+
+const problems = [
+  {
+    number: '01',
+    title: 'No instant correction',
+    copy: 'Without feedback in the moment, it is difficult to improve form or catch habits as they develop.',
+  },
+  {
+    number: '02',
+    title: 'Subtle misalignment',
+    copy: 'Small form breakdowns can go unnoticed, making practice less effective and increasing avoidable strain.',
+  },
+  {
+    number: '03',
+    title: 'Practicing alone',
+    copy: 'Solo sessions can miss the guidance, confidence, and shared motivation of a studio environment.',
+  },
+  {
+    number: '04',
+    title: 'Screens break focus',
+    copy: 'Following tutorials on a phone or laptop can interrupt the mindfulness that home practice should create.',
   },
 ]
 
@@ -46,11 +78,21 @@ function FeatureIcon({ number }) {
     )
   }
 
+  if (number === '03') {
+    return (
+      <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <rect x="13" y="6" width="22" height="36" rx="5" />
+        <path d="M19 31c3-7 7-7 10 0M19 16h10M19 21h7" />
+        <circle cx="24" cy="36" r="1" />
+      </svg>
+    )
+  }
+
   return (
     <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
-      <path d="M8 38h33M11 34l9-10 7 6 13-16" />
-      <path d="M32 14h8v8" />
-      <circle cx="11" cy="34" r="2" />
+      <rect x="7" y="10" width="34" height="26" rx="5" />
+      <circle cx="20" cy="20" r="4" />
+      <path d="M13 31c1-5 4-7 7-7s6 2 7 7M31 17l5 3-5 3v-6ZM18 41h12" />
     </svg>
   )
 }
@@ -207,7 +249,7 @@ export default function App() {
               </div>
               <div className="hero-proof">
                 <div className="avatar-stack" aria-hidden="true">
-                  <span>SK</span><span>AM</span><span>RJ</span>
+                  <span>SK</span><span>AS</span><span>TK</span>
                 </div>
                 <div><strong>Technology that respects tradition</strong><small>Guidance without disrupting your practice.</small></div>
               </div>
@@ -229,15 +271,31 @@ export default function App() {
         </section>
 
         <section className="trust-strip" aria-label="Product highlights">
-          <span>REAL-TIME FEEDBACK</span><i>✦</i><span>8 FOUNDATIONAL POSES</span><i>✦</i>
-          <span>SINGING BOWL GUIDANCE</span><i>✦</i><span>MINDFUL BY DESIGN</span>
+          <span>90% PROTOTYPE VALIDATION ACCURACY</span><i>✦</i><span>8 COMMON POSES</span><i>✦</i>
+          <span>CAMERA FRAMES STAY ON-DEVICE</span><i>✦</i><span>LIVE BROWSER DEMO</span>
+        </section>
+
+        <section className="problems section-wrap" id="why-auralis">
+          <div className="section-heading">
+            <div><span className="kicker">Why Auralis</span><h2>Studio guidance belongs at home.</h2></div>
+            <p>Yoga at home is convenient, but the feedback, confidence, and focused atmosphere of a studio are difficult to recreate with a screen alone.</p>
+          </div>
+          <div className="problem-grid">
+            {problems.map((problem) => (
+              <article className="problem-card" key={problem.number}>
+                <span>{problem.number}</span>
+                <h3>{problem.title}</h3>
+                <p>{problem.copy}</p>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section className="demo section-wrap" id="demo">
           <div className="demo-heading">
             <div>
               <span className="kicker">Classifier in motion</span>
-              <h2>See movement become<br />meaningful feedback.</h2>
+              <h2>Useful feedback for every move, every hold, and every pose.</h2>
             </div>
             <div className="demo-copy">
               <p>
@@ -263,7 +321,7 @@ export default function App() {
 
         <section className="studio section-wrap" id="studio">
           <div className="studio-heading">
-            <div><span className="kicker">Try the working prototype</span><h2>Your mat. Your camera.<br />Your practice.</h2></div>
+            <div><span className="kicker">Try the working prototype</span><h2>Your mat.<br />Your camera.<br />Your practice.</h2></div>
             <p>Experience Auralis pose tracking in your browser. Camera frames stay on your device—only anonymous body landmarks reach the classifier.</p>
           </div>
 
@@ -305,15 +363,39 @@ export default function App() {
           </div>
         </section>
 
+        <section className="product-status section-wrap" id="vision">
+          <div className="status-heading">
+            <div><span className="kicker">Auralis today and tomorrow</span><h2>A working foundation. A more complete practice ahead.</h2></div>
+            <p>The live browser experience is the first proof point for a broader at-home yoga coach built around movement, sound, and human guidance.</p>
+          </div>
+          <div className="status-grid">
+            <article>
+              <span className="status-badge status-live">Available now</span>
+              <h3>Browser pose prototype</h3>
+              <p>Try real-time camera tracking, feedback, hold timing, and classification across eight common poses on this page.</p>
+            </article>
+            <article>
+              <span className="status-badge status-building">In development</span>
+              <h3>Physical bowl player</h3>
+              <p>3D modelling and PCB design are underway for an integrated metal singing-bowl player that supports session transitions.</p>
+            </article>
+            <article>
+              <span className="status-badge status-planned">Planned</span>
+              <h3>Connected coaching</h3>
+              <p>A companion app, AI vocal cues, personalized sequences, and remote classes with real instructors complete the product vision.</p>
+            </article>
+          </div>
+        </section>
+
         <section className="features section-wrap" id="features">
           <div className="section-heading">
-            <div><span className="kicker">Movement, sound, and awareness</span><h2>A calmer way to<br />practice at home.</h2></div>
-            <p>Auralis combines computer vision with thoughtful sound guidance, so you can focus less on whether you’re doing it right—and more on how it feels.</p>
+            <div><span className="kicker">One connected practice</span><h2>Technology, tradition, and human guidance.</h2></div>
+            <p>Auralis is designed as four connected parts. The pose prototype works today; the physical and service layers are clearly marked as in development or planned.</p>
           </div>
           <div className="feature-grid">
             {features.map((feature) => (
               <article className="feature-card" key={feature.number}>
-                <span className="feature-number">{feature.number}</span>
+                <div className="feature-topline"><span className="feature-number">{feature.number}</span><span className="feature-status">{feature.status}</span></div>
                 <div className={`feature-icon feature-icon-${feature.number}`} aria-hidden="true">
                   <FeatureIcon number={feature.number} />
                 </div>
@@ -324,10 +406,31 @@ export default function App() {
           </div>
         </section>
 
+        <section className="audiences section-wrap" aria-labelledby="audiences-title">
+          <div className="audiences-heading">
+            <span className="kicker">Built for practice and partnership</span>
+            <h2 id="audiences-title"><span>Auralis starts</span> <span>at home – and grows</span> <span>through community.</span></h2>
+          </div>
+          <div className="audience-grid">
+            <article>
+              <span className="audience-label">For practitioners</span>
+              <h3>Bring more confidence to home practice.</h3>
+              <p>Designed for health-conscious adults who want immediate guidance without giving up a calm, mindful environment.</p>
+              <button className="button audience-button" type="button" disabled>Early access coming soon</button>
+            </article>
+            <article>
+              <span className="audience-label">For studios & wellness partners</span>
+              <h3>Extend great teaching beyond the studio.</h3>
+              <p>A future platform for yoga studios, instructors, and wellness programmes seeking scalable at-home support.</p>
+              <button className="button audience-button" type="button" disabled>Partner programme coming soon</button>
+            </article>
+          </div>
+        </section>
+
         <section className="how section-wrap" id="how-it-works">
           <div className="how-card">
             <span className="kicker">How it works</span>
-            <h2>From camera to cue<br />in the blink of an eye.</h2>
+            <h2>From camera to cue in the blink of an eye.</h2>
             <div className="steps">
               <div><b>1</b><span><strong>Choose your practice</strong><small>Select a pose, sequence, or mindful free-flow session.</small></span></div>
               <div><b>2</b><span><strong>Step into frame</strong><small>Computer vision maps your movement for instant feedback.</small></span></div>
