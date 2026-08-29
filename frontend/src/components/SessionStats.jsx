@@ -7,18 +7,22 @@ export default function SessionStats() {
   const repCountPerPose = useStore((s) => s.repCountPerPose)
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-      <div>
-        <strong>Current pose:</strong> {prediction?.label || '—'}{' '}
-        {prediction && `(${Math.round((prediction.confidence || 0) * 100)}%)`}
+    <div className="session-stats">
+      <div className="stat">
+        <span className="stat-label">Current pose</span>
+        <strong className="stat-value">{prediction?.label || 'Looking…'}</strong>
       </div>
-      <div><strong>Hold:</strong> {holdSeconds.toFixed(1)} s</div>
-      <div><strong>Reps this pose:</strong> {repCount}</div>
-      <div>
-        <strong>Session totals:</strong>{' '}
-        {Object.keys(repCountPerPose).length === 0
-          ? 'none yet'
-          : Object.entries(repCountPerPose).map(([k, v]) => `${k}: ${v}`).join(', ')}
+      <div className="stat">
+        <span className="stat-label">Confidence</span>
+        <strong className="stat-value">{prediction ? `${Math.round((prediction.confidence || 0) * 100)}%` : '—'}</strong>
+      </div>
+      <div className="stat">
+        <span className="stat-label">Steady hold</span>
+        <strong className="stat-value">{holdSeconds.toFixed(1)} s</strong>
+      </div>
+      <div className="stat">
+        <span className="stat-label">Reps · total</span>
+        <strong className="stat-value">{repCount} · {Object.values(repCountPerPose).reduce((sum, count) => sum + count, 0)}</strong>
       </div>
     </div>
   )
