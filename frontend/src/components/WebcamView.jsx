@@ -1,6 +1,9 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 export default function WebcamView({ videoRef, onError }) {
+  const onErrorRef = useRef(onError)
+  onErrorRef.current = onError
+
   useEffect(() => {
     let stream
     let active = true
@@ -10,22 +13,21 @@ export default function WebcamView({ videoRef, onError }) {
         stream = s
         if (videoRef.current) {
           videoRef.current.srcObject = s
-          videoRef.current.play().catch(onError)
+          videoRef.current.play().catch((error) => onErrorRef.current?.(error))
         }
       })
-      .catch(onError)
+      .catch((error) => onErrorRef.current?.(error))
     return () => {
       active = false
       if (stream) stream.getTracks().forEach((t) => t.stop())
     }
-  }, [videoRef, onError])
+  }, [videoRef])
 
   return (
     <video
       ref={videoRef}
       playsInline
       muted
-      style={{ width: '100%', maxWidth: 640, borderRadius: 8, background: '#000' }}
     />
   )
 }

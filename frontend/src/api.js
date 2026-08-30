@@ -29,9 +29,10 @@ export async function resetSession(sessionId) {
   return fetch(`${BASE}/session/${sessionId}/reset`, { method: 'POST' }).then(jsonOrThrow)
 }
 
-export async function predict(imageBlob, sessionId) {
-  const form = new FormData()
-  form.append('image', imageBlob)
-  form.append('session_id', sessionId)
-  return fetch(`${BASE}/predict`, { method: 'POST', body: form }).then(jsonOrThrow)
+export async function predict(landmarks, sessionId) {
+  return fetch(`${BASE}/predict`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ landmarks, session_id: sessionId }),
+  }).then(jsonOrThrow)
 }

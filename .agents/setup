@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$repo_root"
+
+step() {
+  printf '\n==> %s\n' "$1"
+}
+
+step "Checking toolchains"
+command -v python3 >/dev/null || { echo "Python 3.10+ is required" >&2; exit 1; }
+command -v node >/dev/null || { echo "Node.js 18+ is required" >&2; exit 1; }
+command -v npm >/dev/null || { echo "npm is required" >&2; exit 1; }
+
+python3 -c 'import sys; assert sys.version_info >= (3, 10), "Python 3.10+ is required"'
+node -e 'const major = Number(process.versions.node.split(".")[0]); if (major < 18) throw new Error("Node.js 18+ is required")'
+
+step "Installing backend dependencies"
+if [[ ! -x backend/.venv/bin/python ]]; then
+  python3 -m venv backend/.venv
+fi
+backend/.venv/bin/python -m pip install \
+  --disable-pip-version-check \
+  --requirement backend/requirements.txt
+
+step "Installing frontend dependencies"
+npm --prefix frontend ci --prefer-offline --no-audit --no-fund
+
+step "Orb setup complete"

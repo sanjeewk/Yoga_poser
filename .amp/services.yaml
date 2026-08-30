@@ -1,0 +1,14 @@
+services:
+  api:
+    command: backend/.venv/bin/uvicorn backend.app.main:app --host 0.0.0.0 --port "$PORT"
+    port: 8000
+    health: /api/health
+  web:
+    command: npm run dev -- --host 0.0.0.0 --port "$PORT"
+    cwd: frontend
+    health: /api/health
+    portal:
+      title: Yoga Poser
+      description: Landing page and live yoga pose classifier.
+    review: true
+    agent: control
