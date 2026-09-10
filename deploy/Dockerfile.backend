@@ -8,11 +8,11 @@ WORKDIR /app
 
 COPY deploy/requirements-backend.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir --requirement /tmp/requirements.txt \
-    && useradd --create-home --uid 10001 auralis
+    && useradd --create-home --uid 10001 auralys
 
-COPY --chown=auralis:auralis backend /app/backend
+COPY --chown=auralys:auralys backend /app/backend
 
-USER auralis
+USER auralys
 
 EXPOSE 8000
 
