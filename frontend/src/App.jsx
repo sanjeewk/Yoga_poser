@@ -106,7 +106,7 @@ export default function App() {
   const [heroSoundOn, setHeroSoundOn] = useState(false)
   const [soundPreference, setSoundPreference] = useState(() => {
     try {
-      return localStorage.getItem('auralis-sound-preference')
+      return localStorage.getItem('auralys-sound-preference')
     } catch {
       return null
     }
@@ -171,7 +171,7 @@ export default function App() {
       await audio.play()
       setHeroSoundOn(true)
       setSoundPreference('accepted')
-      localStorage.setItem('auralis-sound-preference', 'accepted')
+      localStorage.setItem('auralys-sound-preference', 'accepted')
     } catch {
       setHeroSoundOn(false)
     }
@@ -179,7 +179,7 @@ export default function App() {
 
   const acceptHeroSound = async () => {
     setSoundPreference('accepted')
-    localStorage.setItem('auralis-sound-preference', 'accepted')
+    localStorage.setItem('auralys-sound-preference', 'accepted')
     const audio = heroAudioRef.current
     if (!audio) return
     audio.volume = 0.22
@@ -193,15 +193,15 @@ export default function App() {
 
   const declineHeroSound = () => {
     setSoundPreference('silent')
-    localStorage.setItem('auralis-sound-preference', 'silent')
+    localStorage.setItem('auralys-sound-preference', 'silent')
   }
 
   return (
     <div className="site-shell">
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="Auralis home">
-          <span className="brand-mark" aria-hidden="true"><img src="/media/auralis-mark.png" alt="" /></span>
-          <span>Auralis</span>
+        <a className="brand" href="#top" aria-label="Auralys home">
+          <span className="brand-mark" aria-hidden="true"><img src="/media/auralys-mark.png" alt="" /></span>
+          <span>Auralys</span>
         </a>
         <nav className="nav-links" aria-label="Main navigation">
           <a href="#demo">Demo</a>
@@ -224,9 +224,9 @@ export default function App() {
           {!soundPreference && (
             <div className="sound-consent-backdrop">
               <div className="sound-consent" role="dialog" aria-modal="true" aria-labelledby="sound-consent-title">
-                <img src="/media/auralis-mark.png" alt="" />
+                <img src="/media/auralys-mark.png" alt="" />
                 <span className="kicker">An immersive welcome</span>
-                <h2 id="sound-consent-title">Enter Auralis with sound?</h2>
+                <h2 id="sound-consent-title">Enter Auralys with sound?</h2>
                 <p>A gentle singing-bowl tone accompanies the opening experience. You can turn it off at any time.</p>
                 <div className="sound-consent-actions">
                   <button className="button" type="button" onClick={acceptHeroSound}>Enter with sound <span aria-hidden="true">◖))</span></button>
@@ -240,7 +240,7 @@ export default function App() {
               <div className="eyebrow"><span /> AI-powered yoga & mindfulness</div>
               <h1>Move with awareness.<br /><em>Flow with confidence.</em></h1>
               <p className="hero-lede">
-                Auralis brings real-time pose feedback and immersive singing-bowl guidance
+                Auralys brings real-time pose feedback and immersive singing-bowl guidance
                 together—so home practice feels focused, supported, and deeply mindful.
               </p>
               <div className="hero-actions">
@@ -275,9 +275,9 @@ export default function App() {
           <span>CAMERA FRAMES STAY ON-DEVICE</span><i>✦</i><span>LIVE BROWSER DEMO</span>
         </section>
 
-        <section className="problems section-wrap" id="why-auralis">
+        <section className="problems section-wrap" id="why-auralys">
           <div className="section-heading">
-            <div><span className="kicker">Why Auralis</span><h2>Studio guidance belongs at home.</h2></div>
+            <div><span className="kicker">Why Auralys</span><h2>Studio guidance belongs at home.</h2></div>
             <p>Yoga at home is convenient, but the feedback, confidence, and focused atmosphere of a studio are difficult to recreate with a screen alone.</p>
           </div>
           <div className="problem-grid">
@@ -322,7 +322,7 @@ export default function App() {
         <section className="studio section-wrap" id="studio">
           <div className="studio-heading">
             <div><span className="kicker">Try the working prototype</span><h2>Your mat.<br />Your camera.<br />Your practice.</h2></div>
-            <p>Experience Auralis pose tracking in your browser. Camera frames stay on your device—only anonymous body landmarks reach the classifier.</p>
+            <p>Experience Auralys pose tracking in your browser. Camera frames stay on your device—only anonymous body landmarks reach the classifier.</p>
           </div>
 
           <div className="practice-app">
@@ -365,7 +365,7 @@ export default function App() {
 
         <section className="product-status section-wrap" id="vision">
           <div className="status-heading">
-            <div><span className="kicker">Auralis today and tomorrow</span><h2>A working foundation. A more complete practice ahead.</h2></div>
+            <div><span className="kicker">Auralys today and tomorrow</span><h2>A working foundation. A more complete practice ahead.</h2></div>
             <p>The live browser experience is the first proof point for a broader at-home yoga coach built around movement, sound, and human guidance.</p>
           </div>
           <div className="status-grid">
@@ -390,7 +390,7 @@ export default function App() {
         <section className="features section-wrap" id="features">
           <div className="section-heading">
             <div><span className="kicker">One connected practice</span><h2>Technology, tradition, and human guidance.</h2></div>
-            <p>Auralis is designed as four connected parts. The pose prototype works today; the physical and service layers are clearly marked as in development or planned.</p>
+            <p>Auralys is designed as four connected parts. The pose prototype works today; the physical and service layers are clearly marked as in development or planned.</p>
           </div>
           <div className="feature-grid">
             {features.map((feature) => (
@@ -409,7 +409,7 @@ export default function App() {
         <section className="audiences section-wrap" aria-labelledby="audiences-title">
           <div className="audiences-heading">
             <span className="kicker">Built for practice and partnership</span>
-            <h2 id="audiences-title"><span>Auralis starts</span> <span>at home – and grows</span> <span>through community.</span></h2>
+            <h2 id="audiences-title"><span>Auralys starts</span> <span>at home – and grows</span> <span>through community.</span></h2>
           </div>
           <div className="audience-grid">
             <article>
@@ -440,7 +440,7 @@ export default function App() {
           <blockquote>
             <span className="quote-mark">“</span>
             <p>Practice isn’t about perfect shapes. It’s about building awareness—one breath at a time.</p>
-            <footer>THE AURALIS PHILOSOPHY</footer>
+            <footer>THE AURALYS PHILOSOPHY</footer>
           </blockquote>
         </section>
 
@@ -454,13 +454,13 @@ export default function App() {
       </main>
 
       <footer className="site-footer section-wrap">
-        <a className="brand" href="#top"><span className="brand-mark"><img src="/media/auralis-mark.png" alt="" /></span><span>Auralis</span></a>
+        <a className="brand" href="#top"><span className="brand-mark"><img src="/media/auralys-mark.png" alt="" /></span><span>Auralys</span></a>
         <p>Computer vision for a more mindful practice.</p>
         <div className="footer-meta">
           <a href="https://www.pexels.com/video/a-woman-making-music-with-a-tibetan-singing-bowl-6892372/" target="_blank" rel="noreferrer">Hero video by Mikhail Nilov · Pexels</a>
           <a href="https://www.pexels.com/video/8712742/" target="_blank" rel="noreferrer">Classifier demo video by Kampus Production · Pexels</a>
           <a href="https://freesound.org/people/s-light/sounds/415140/" target="_blank" rel="noreferrer">Singing bowl sound by s-light · CC0</a>
-          <span>© 2026 Auralis</span>
+          <span>© 2026 Auralys</span>
         </div>
       </footer>
     </div>
